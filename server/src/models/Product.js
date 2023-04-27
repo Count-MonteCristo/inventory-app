@@ -13,8 +13,16 @@ const ProductSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    description: {
+    sku: {
+      type: Number,
+      required: true,
+    },
+    supplier: {
       type: String,
+      required: true,
+    },
+    price: {
+      type: Number,
       required: true,
     },
     quantity: {

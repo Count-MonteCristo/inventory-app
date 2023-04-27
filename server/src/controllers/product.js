@@ -44,12 +44,18 @@ const createProduct = async (req, res) => {
 // Attempts to update a product in the database using the Product model and findOneAndUpdate method
 const updateProduct = async (req, res) => {
   const {
-    body: { name, description, quantity },
+    body: { name, sku, supplier, price, quantity },
     user: { userId },
     params: { id: productId },
   } = req;
 
-  if (name === "" || description === "" || quantity === "") {
+  if (
+    name === "" ||
+    sku === "" ||
+    supplier === "" ||
+    price === "" ||
+    quantity === ""
+  ) {
     throw new BadRequestError("Fields cannot be empty");
   }
 
