@@ -2,6 +2,9 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
+// Import - Style
+import style from "./app.module.css";
+
 // Imports - Pages
 import Home from "./components/HomePage";
 import Login from "./components/LoginPage";

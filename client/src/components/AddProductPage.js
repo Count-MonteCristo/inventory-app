@@ -2,6 +2,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+// Import - Style
+import style from "./componentCSS/add.module.css";
+
 function AddProduct() {
   // Defines component variables
   const productName = "";
@@ -11,54 +14,95 @@ function AddProduct() {
   const quantity = "";
 
   return (
-    <div>
-      <h1>Add Product</h1>
+    <div className={style.card}>
+      <p className={style.headerText}>Please fill out the fields below</p>
       {/* Add product form component */}
       <form>
         <div>
-          <label htmlFor="productName">Product Name:</label>
+          <label
+            className={style.addLabel}
+            htmlFor="productName"
+          >
+            Product Name:
+          </label>
           <input
+            className={style.addInput}
             type="text"
             id="productName"
-            value={productName}
+            //value={productName}
           />
         </div>
         <div>
-          <label htmlFor="sku">SKU:</label>
+          <label
+            className={style.addLabel}
+            htmlFor="sku"
+          >
+            SKU:
+          </label>
           <input
+            className={style.addInput}
             type="text"
             id="sku"
-            value={sku}
+            //value={sku}
           />
         </div>
         <div>
-          <label htmlFor="supplier">Supplier:</label>
+          <label
+            className={style.addLabel}
+            htmlFor="supplier"
+          >
+            Supplier:
+          </label>
           <input
+            className={style.addInput}
             type="text"
             id="supplier"
-            value={supplier}
+            //value={supplier}
           />
         </div>
         <div>
-          <label htmlFor="price">Price:</label>
+          <label
+            className={style.addLabel}
+            htmlFor="price"
+          >
+            Price:
+          </label>
           <input
+            className={style.addInput}
             type="number"
             id="price"
-            value={price}
+            //value={price}
           />
         </div>
         <div>
-          <label htmlFor="quantity">Quantity:</label>
+          <label
+            className={style.addLabel}
+            htmlFor="quantity"
+          >
+            Quantity:
+          </label>
           <input
+            className={style.addInput}
             type="number"
             id="quantity"
-            value={quantity}
+            //value={quantity}
           />
         </div>
-        <Link to="/">
-          <button>Back</button>
-        </Link>
-        <button type="submit">Add</button>
+        <div className={style.buttons}>
+          <Link to="/">
+            <button className={style.cancelButton}>
+              <p className={style.cancelButtonLabel}>Back</p>
+            </button>
+          </Link>
+          <Link to="/">
+            <button
+              className={style.addButton}
+              type="submit"
+            >
+              <p className={style.addButtonLabel}>Add</p>
+            </button>
+          </Link>
+        </div>
       </form>
     </div>
   );
