@@ -1,0 +1,81 @@
+.card {
+  background-color: #fefefe;
+  width: 500px;
+  height: 800px;
+  border-radius: 15px;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.headerText {
+  padding-bottom: 20px;
+}
+
+.addLabel,
+.addInput {
+  display: block;
+  margin-bottom: 20px;
+  width: 350px;
+}
+
+.addInput {
+  height: 50px;
+  border-radius: 10px;
+  border-color: #74baf9;
+  border-style: solid;
+  box-shadow: none !important;
+  color: #070a48;
+  font-size: 20px;
+  padding-left: 20px;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 60px;
+}
+
+.cancelButton,
+.addButton {
+  width: 150px;
+  height: 50px;
+  border-radius: 20px;
+  display: block;
+  margin: 0 auto;
+  margin-top: 30px;
+  cursor: pointer;
+  box-shadow: none !important;
+}
+
+.cancelButton {
+  background-color: transparent;
+  border-color: #74baf9;
+  border-style: solid;
+}
+
+.cancelButtonLabel {
+  color: #74baf9;
+  font-size: 20px;
+  margin: 0;
+}
+
+.addButton {
+  background-color: #74baf9;
+  border-color: #74baf9;
+  border-style: solid;
+}
+
+.addButtonLabel {
+  color: white;
+  font-size: 20px;
+  margin: 0;
+}

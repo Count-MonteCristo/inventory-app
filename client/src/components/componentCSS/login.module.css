@@ -1,0 +1,64 @@
+.card {
+  background-color: #fefefe;
+  width: 500px;
+  height: 600px;
+  border-radius: 15px;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.loginLabel,
+.loginInput {
+  display: block;
+  margin-bottom: 20px;
+  width: 350px;
+}
+
+.loginInput {
+  height: 50px;
+  border-radius: 10px;
+  border-color: #74baf9;
+  border-style: solid;
+  box-shadow: none !important;
+  color: #070a48;
+  font-size: 20px;
+  padding-left: 20px;
+}
+
+.loginButton {
+  width: 150px;
+  height: 50px;
+  border-radius: 20px;
+  background-color: #74baf9;
+  border-color: #74baf9;
+  border-style: solid;
+  box-shadow: none !important;
+  display: block;
+  margin: 0 auto;
+  margin-top: 30px;
+  cursor: pointer;
+}
+
+.loginButtonLabel {
+  color: white;
+  font-size: 20px;
+  margin: 0;
+}
+
+.registerPrompt {
+  display: block;
+  margin-top: 30px;
+}
+
+.registerLink {
+  display: block;
+  margin-top: 10px;
+  text-align: center;
+}

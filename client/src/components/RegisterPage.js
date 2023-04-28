@@ -8,36 +8,69 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+// Import - Style
+import style from "./componentCSS/register.module.css";
+
+// Import - Creative Assets
+import imageSource from "../creative/Inventorio.png";
+
 // Defines component variables
 const email = "";
 const password = "";
 
 function Register() {
   return (
-    <div>
-      <h1>Register</h1>
+    <div className={style.card}>
+      <img
+        src={imageSource}
+        alt="logo"
+      />
+      <p>Please provide an email and a passwords</p>
       {/* Register form component */}
       <form>
         <div>
-          <label htmlFor="email">Email:</label>
+          <label
+            className={style.registerLabel}
+            htmlFor="email"
+          >
+            Email:
+          </label>
           <input
+            className={style.registerInput}
             type="email"
             id="email"
-            value={email}
+            //value={email}
           />
         </div>
         <div>
-          <label htmlFor="password">Password:</label>
+          <label
+            className={style.registerLabel}
+            htmlFor="password"
+          >
+            Password:
+          </label>
           <input
+            className={style.registerInput}
             type="password"
             id="password"
-            value={password}
+            //value={password}
           />
         </div>
-        <Link to="/login">
-          <button>Back</button>
-        </Link>
-        <button type="submit">Register</button>
+        <div className={style.buttons}>
+          <Link to="/login">
+            <button className={style.cancelButton}>
+              <p className={style.cancelButtonLabel}>Cancel</p>
+            </button>
+          </Link>
+          <Link to="/login">
+            <button
+              className={style.registerButton}
+              type="submit"
+            >
+              <p className={style.registerButtonLabel}>Register</p>
+            </button>
+          </Link>
+        </div>
       </form>
     </div>
   );

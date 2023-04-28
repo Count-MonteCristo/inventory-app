@@ -2,7 +2,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-function AddProduct() {
+// Import - Style
+import style from "./componentCSS/update.module.css";
+
+function updateProduct() {
   // Defines component variables
   const productName = "";
   const sku = "";
@@ -11,57 +14,98 @@ function AddProduct() {
   const quantity = "";
 
   return (
-    <div>
-      <h1>Update Product</h1>
-      {/* Update product form component */}
+    <div className={style.card}>
+      <p className={style.headerText}>Please fill out the fields below</p>
+      {/* update product form component */}
       <form>
         <div>
-          <label htmlFor="productName">Product Name:</label>
+          <label
+            className={style.updateLabel}
+            htmlFor="productName"
+          >
+            Product Name:
+          </label>
           <input
+            className={style.updateInput}
             type="text"
             id="productName"
-            value={productName}
+            //value={productName}
           />
         </div>
         <div>
-          <label htmlFor="sku">SKU:</label>
+          <label
+            className={style.updateLabel}
+            htmlFor="sku"
+          >
+            SKU:
+          </label>
           <input
+            className={style.updateInput}
             type="text"
             id="sku"
-            value={sku}
+            //value={sku}
           />
         </div>
         <div>
-          <label htmlFor="supplier">Supplier:</label>
+          <label
+            className={style.updateLabel}
+            htmlFor="supplier"
+          >
+            Supplier:
+          </label>
           <input
+            className={style.updateInput}
             type="text"
             id="supplier"
-            value={supplier}
+            //value={supplier}
           />
         </div>
         <div>
-          <label htmlFor="price">Price:</label>
+          <label
+            className={style.updateLabel}
+            htmlFor="price"
+          >
+            Price:
+          </label>
           <input
+            className={style.updateInput}
             type="number"
             id="price"
-            value={price}
+            //value={price}
           />
         </div>
         <div>
-          <label htmlFor="quantity">Quantity:</label>
+          <label
+            className={style.updateLabel}
+            htmlFor="quantity"
+          >
+            Quantity:
+          </label>
           <input
+            className={style.updateInput}
             type="number"
             id="quantity"
-            value={quantity}
+            //value={quantity}
           />
         </div>
-        <Link to="/">
-          <button>Back</button>
-        </Link>
-        <button type="submit">Update</button>
+        <div className={style.buttons}>
+          <Link to="/">
+            <button className={style.cancelButton}>
+              <p className={style.cancelButtonLabel}>Back</p>
+            </button>
+          </Link>
+          <Link to="/">
+            <button
+              className={style.updateButton}
+              type="submit"
+            >
+              <p className={style.updateButtonLabel}>Update</p>
+            </button>
+          </Link>
+        </div>
       </form>
     </div>
   );
 }
 
-export default AddProduct;
+export default updateProduct;

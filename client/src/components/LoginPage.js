@@ -7,37 +7,74 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+// Import - Style
+import style from "./componentCSS/login.module.css";
+
+// Import - Creative Assets
+import imageSource from "../creative/Inventorio.png";
+
 function Login() {
   // Defines component variables
   const email = "";
   const password = "";
 
   return (
-    <div>
-      <h1>Login</h1>
+    <div className={style.card}>
+      <img
+        src={imageSource}
+        alt="logo"
+      />
+      <p>Please login with your admin credentials</p>
       {/* Login form component */}
       <form>
         <div>
-          <label htmlFor="email">Email:</label>
+          <label
+            className={style.loginLabel}
+            htmlFor="email"
+          >
+            Email:
+          </label>
           <input
+            className={style.loginInput}
             type="email"
             id="email"
-            value={email}
+            //value={email}
           />
         </div>
         <div>
-          <label htmlFor="password">Password:</label>
+          <label
+            className={style.loginLabel}
+            htmlFor="password"
+          >
+            Password:
+          </label>
           <input
+            className={style.loginInput}
             type="password"
             id="password"
-            value={password}
+            //value={password}
           />
         </div>
-        <button type="submit">Login</button>
+        <Link to="/">
+          <button
+            className={style.loginButton}
+            type="submit"
+          >
+            <p className={style.loginButtonLabel}>Login</p>
+          </button>
+        </Link>
       </form>
-      <p>
-        Don't have an account? <Link to="/register">Register</Link>
-      </p>
+      <div>
+        <p className={style.registerPrompt}>
+          Don't have an account?
+          <Link
+            className={style.registerLink}
+            to="/register"
+          >
+            Register
+          </Link>
+        </p>
+      </div>
     </div>
   );
 }
