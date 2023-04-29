@@ -4,8 +4,9 @@
  */
 
 // Imports - Dependencies
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 // Import - Style
 import style from "./componentCSS/login.module.css";
@@ -14,9 +15,41 @@ import style from "./componentCSS/login.module.css";
 import imageSource from "../creative/Inventorio.png";
 
 function Login() {
-  // Defines component variables
-  const email = "";
-  const password = "";
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+
+  // Fetch API Request to login a user
+  const handleSubmit = (event) => {
+    console.log("handleSubmit called"); //debug
+    event.preventDefault();
+
+    fetch("/api/v1/auth/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, password }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("success"); //debug
+
+        // save token to local storage
+        localStorage.setItem("token", data.token);
+
+        // Sends user to the products page
+        navigate("/");
+      })
+      .catch((error) => {
+        console.log("something went wrong"); //debug
+
+        // Handle error
+        console.error(error);
+      });
+
+    console.log("Submitting form..."); //debug
+  };
 
   return (
     <div className={style.card}>
@@ -26,7 +59,7 @@ function Login() {
       />
       <p>Please login with your admin credentials</p>
       {/* Login form component */}
-      <form>
+      <form onSubmit={handleSubmit}>
         <div>
           <label
             className={style.loginLabel}
@@ -38,7 +71,8 @@ function Login() {
             className={style.loginInput}
             type="email"
             id="email"
-            //value={email}
+            value={email}
+            onChange={(event) => setEmail(event.target.value)}
           />
         </div>
         <div>
@@ -52,17 +86,16 @@ function Login() {
             className={style.loginInput}
             type="password"
             id="password"
-            //value={password}
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
           />
         </div>
-        <Link to="/">
-          <button
-            className={style.loginButton}
-            type="submit"
-          >
-            <p className={style.loginButtonLabel}>Login</p>
-          </button>
-        </Link>
+        <button
+          className={style.loginButton}
+          type="submit"
+        >
+          <p className={style.loginButtonLabel}>Login</p>
+        </button>
       </form>
       <div>
         <p className={style.registerPrompt}>
