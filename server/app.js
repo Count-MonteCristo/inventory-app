@@ -27,6 +27,7 @@ const cors = require("cors");
 const xss = require("xss-clean");
 const rateLimiter = require("express-rate-limit");
 
+app.set("trust proxy", 1);
 app.use(helmet());
 app.use(cors());
 app.use(xss());
@@ -36,6 +37,8 @@ app.use(
     max: 100, // Limit each IP to 100 requests per `window` (here, per 15 minutes)
   })
 );
+
+app.use(express.static("./src/public"));
 
 // Routers
 const authRouter = require("./src/routes/auth");
@@ -49,7 +52,7 @@ app.use(errorHandlerMiddleware);
 app.use(notFoundMiddleware);
 
 // Sets up the port number for the Express application to listen on
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 5005;
 
 // Starts the Express application by establising a connection to a MongoDB database
 const start = async () => {
