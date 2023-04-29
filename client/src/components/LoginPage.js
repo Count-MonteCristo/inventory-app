@@ -17,38 +17,52 @@ import imageSource from "../creative/Inventorio.png";
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
 
-  // Fetch API Request to login a user
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     console.log("handleSubmit called"); //debug
     event.preventDefault();
 
-    fetch("/api/v1/auth/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email, password }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("success"); //debug
+    const postData = async (email, password) => {
+      const url = "http://localhost:5005/api/v1/auth/login";
 
-        // save token to local storage
-        localStorage.setItem("token", data.token);
+      const data = {
+        email: email,
+        password: password,
+      };
 
-        // Sends user to the products page
-        navigate("/");
-      })
-      .catch((error) => {
-        console.log("something went wrong"); //debug
+      try {
+        const response = await fetch(url, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        });
 
-        // Handle error
-        console.error(error);
-      });
+        console.log("Submitting form .."); //debug
 
-    console.log("Submitting form..."); //debug
+        if (response.ok) {
+          console.log("Success loggin in");
+
+          // save token to local storage
+          localStorage.setItem("token", data.token);
+
+          // Sends user to the products page
+          navigate("/");
+        }
+
+        if (!response.ok) {
+          const errorData = await response.json();
+          console.log("Error:", errorData);
+
+          setErrorMessage("Failed to log in.");
+        }
+      } catch {}
+    };
+
+    postData(email, password);
   };
 
   return (
@@ -97,6 +111,10 @@ function Login() {
           <p className={style.loginButtonLabel}>Login</p>
         </button>
       </form>
+
+      {/* Error message */}
+      {errorMessage && <div className={style.errorMessage}>{errorMessage}</div>}
+
       <div>
         <p className={style.registerPrompt}>
           Don't have an account?

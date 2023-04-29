@@ -18,30 +18,57 @@ function Register() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   // Fetch API Request to register a user
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     console.log("handleSubmit called"); //debug
     event.preventDefault();
 
-    fetch("/api/v1/auth/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ name, email, password }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("success"); //debug
-      })
-      .catch((error) => {
-        console.log("something went wrong"); //debug
-        console.error(error);
-        // Handle error
-      });
+    const postData = async (name, email, password) => {
+      const url = "http://localhost:5005/api/v1/auth/register";
 
-    console.log("Submitting form..."); //debug
+      const data = {
+        name: name,
+        email: email,
+        password: password,
+      };
+
+      try {
+        const response = await fetch(url, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        });
+
+        console.log("Submitting form .."); //debug
+
+        if (response.ok) {
+          console.log("Success registering");
+
+          setSuccessMessage("User registered successfully!");
+          setErrorMessage("");
+
+          // Reset form values to nothing
+          setName("");
+          setEmail("");
+          setPassword("");
+        }
+
+        if (!response.ok) {
+          const errorData = await response.json();
+          console.log("Error:", errorData);
+
+          setSuccessMessage("");
+          setErrorMessage("Failed to register.");
+        }
+      } catch {}
+    };
+
+    postData(name, email, password);
   };
 
   return (
@@ -101,7 +128,7 @@ function Register() {
         <div className={style.buttons}>
           <Link to="/login">
             <button className={style.cancelButton}>
-              <p className={style.cancelButtonLabel}>Cancel</p>
+              <p className={style.cancelButtonLabel}>Back</p>
             </button>
           </Link>
           <button
@@ -112,6 +139,13 @@ function Register() {
           </button>
         </div>
       </form>
+
+      {/* Success message */}
+      {successMessage && (
+        <div className={style.successMessage}>{successMessage}</div>
+      )}
+      {/* Error message */}
+      {errorMessage && <div className={style.errorMessage}>{errorMessage}</div>}
     </div>
   );
 }

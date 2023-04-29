@@ -2,8 +2,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-import axios from "axios";
-
 // Import - Style
 import style from "./componentCSS/add.module.css";
 
@@ -14,46 +12,23 @@ function AddProduct() {
   const [supplier, setSupplier] = useState("");
   const [price, setPrice] = useState("");
   const [quantity, setQuantity] = useState("");
-  const token = localStorage.getItem("token");
+  const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleSubmit = async (event) => {
     console.log("handleSubmit called"); //debug
     event.preventDefault();
 
-    console.log(productName, sku, supplier, price, quantity);
-    console.log(token);
-
-    /*const data2 = await fetch("http://localhost:5005/api/v1/products", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({ productName, sku, supplier, price, quantity }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data); //debug
-      })
-      .catch((error) => {
-        console.log("something went wrong"); //debug
-
-        // Handle error
-        console.error(error);
-      });
-      */
-
-    /*
-    const postData = async (arg1, arg2, arg3, arg4, arg5) => {
+    const postData = async (productName, sku, supplier, price, quantity) => {
       const token = localStorage.getItem("token");
       const url = "http://localhost:5005/api/v1/products";
 
       const data = {
-        productName: arg1,
-        sku: arg2,
-        supplier: arg3,
-        price: arg4,
-        quantity: arg5,
+        productName: productName,
+        sku: sku,
+        supplier: supplier,
+        price: price,
+        quantity: quantity,
       };
 
       try {
@@ -66,45 +41,29 @@ function AddProduct() {
           body: JSON.stringify(data),
         });
 
-        const responseData = await response.json();
-        console.log(responseData);
+        console.log("Submitting form .."); //debug
+
+        if (response.ok) {
+          console.log("Success adding product");
+          setSuccessMessage("Product added successfully!");
+          setErrorMessage("");
+
+          // Reset form values to nothing
+          setProductName("");
+          setSku("");
+          setSupplier("");
+          setPrice("");
+          setQuantity("");
+        }
 
         if (!response.ok) {
           const errorData = await response.json();
           console.log("Error:", errorData);
+
+          setSuccessMessage("");
+          setErrorMessage("Failed to add product.");
         }
       } catch {}
-    };
-
-    postData(productName, sku, supplier, price, quantity);
-    */
-
-    const postData = async (arg1, arg2, arg3, arg4, arg5) => {
-      const token = localStorage.getItem("token");
-      const url = "http://localhost:5005/api/v1/products";
-
-      const data = {
-        productName: arg1,
-        sku: arg2,
-        supplier: arg3,
-        price: arg4,
-        quantity: arg5,
-      };
-
-      try {
-        const response = await axios.post(url, data, {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify(data),
-        });
-
-        const responseData = response.data;
-        console.log(responseData);
-      } catch (error) {
-        console.error(error);
-      }
     };
 
     postData(productName, sku, supplier, price, quantity);
@@ -204,6 +163,13 @@ function AddProduct() {
           </button>
         </div>
       </form>
+
+      {/* Success message */}
+      {successMessage && (
+        <div className={style.successMessage}>{successMessage}</div>
+      )}
+      {/* Error message */}
+      {errorMessage && <div className={style.errorMessage}>{errorMessage}</div>}
     </div>
   );
 }
