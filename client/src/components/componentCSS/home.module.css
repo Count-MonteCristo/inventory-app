@@ -1,4 +1,5 @@
 .navigation {
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -7,12 +8,20 @@
 }
 
 .logout {
-  padding-right: 40px;
+  height: 30px;
+  background-color: transparent;
+  border: none;
+  color: #74baf9;
+  font-weight: bold;
+  font-size: 14px;
+  cursor: pointer;
+  margin-right: 40px;
 }
 
 .utilityContainer {
   display: flex;
-  justify-content: space-between;
+  justify-content: left;
+  gap: 40px;
   align-items: center;
   margin: 30px 20px;
 }
@@ -31,12 +40,11 @@
 .optionsContainer {
   display: flex;
   justify-content: space-between;
-  gap: 40px;
 }
 
-.buttons {
+.buttonADD {
   height: 50px;
-  width: 100px;
+  width: 180px;
   border-color: #070a48;
   border-style: solid;
   border-radius: 5px;
@@ -45,6 +53,23 @@
   font-size: 16px;
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
   cursor: pointer;
+}
+
+.actionButtons {
+  height: 30px;
+  background-color: transparent;
+  border: none;
+  color: #74baf9;
+  font-weight: bold;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.actionButtons:hover {
+  text-decoration: underline;
+  text-underline-position: under;
+  text-underline-offset: 2px;
+  text-decoration-thickness: 2px;
 }
 
 .tableContainer {
@@ -78,46 +103,35 @@ table tr:hover {
   background-color: #f5f5f5;
 }
 
-input[type="checkbox"] {
-  margin-right: 10px;
-  cursor: pointer;
+/* Responsiveness */
+@media (max-width: 769px) {
+  .search {
+    width: 350px;
+  }
 }
 
-.decreaseButton,
-.increaseButton {
-  border-radius: 50%;
-  cursor: pointer;
-  font-size: 20px;
-  height: 30px;
-  width: 30px;
-}
+@media (max-width: 426px) {
+  .utilityContainer {
+    flex-direction: column-reverse;
+    align-items: center;
+    justify-content: center;
+  }
 
-.decreaseButton:hover {
-  background-color: #e33e3e;
-  color: #fefefe;
-}
+  .buttonADD {
+    height: 35px;
+    width: 200px;
+  }
 
-.increaseButton:hover {
-  background-color: #5c946e;
-  color: #fefefe;
-}
+  .search {
+    height: 40px;
+    margin-bottom: -20px;
+  }
 
-.decreaseButton {
-  border-style: solid;
-  border-color: #e33e3e;
-  background-color: transparent;
-  color: #e33e3e;
-}
+  .actionButtons {
+    font-size: 12px;
+  }
 
-.increaseButton {
-  border-style: solid;
-  border-color: #5c946e;
-  background-color: #fefefe;
-  color: #5c946e;
-}
-
-span {
-  display: inline-flex;
-  width: 20px !important;
-  margin: 0 20px;
+  .logout {
+    margin-right: 20px;
+  }
 }

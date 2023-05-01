@@ -6,7 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import style from "./app.module.css";
 
 // Imports - Pages
-import Home from "./components/HomePage";
+import Products from "./components/HomePage";
 import Login from "./components/LoginPage";
 import Register from "./components/RegisterPage";
 import AddProduct from "./components/AddProductPage";
@@ -20,7 +20,7 @@ function App() {
         <Route
           path="/"
           exact
-          element={<Home />}
+          element={<Login />}
         ></Route>
         <Route
           path="/register"
@@ -28,9 +28,9 @@ function App() {
           element={<Register />}
         ></Route>
         <Route
-          path="/login"
+          path="/products"
           exact
-          element={<Login />}
+          element={<Products />}
         ></Route>
         <Route
           path="/add"

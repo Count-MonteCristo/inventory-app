@@ -24,6 +24,7 @@ function Register() {
   // Fetch API Request to register a user
   const handleSubmit = async (event) => {
     console.log("handleSubmit called"); //debug
+
     event.preventDefault();
 
     const postData = async (name, email, password) => {
@@ -36,6 +37,7 @@ function Register() {
       };
 
       try {
+        // Fetch request that sends data to remote databsse to create a new user
         const response = await fetch(url, {
           method: "POST",
           headers: {
@@ -44,10 +46,10 @@ function Register() {
           body: JSON.stringify(data),
         });
 
-        console.log("Submitting form .."); //debug
+        console.log("Submitting form .."); // Debug
 
         if (response.ok) {
-          console.log("Success registering");
+          console.log("Success registering"); // Debug
 
           setSuccessMessage("User registered successfully!");
           setErrorMessage("");
@@ -60,7 +62,7 @@ function Register() {
 
         if (!response.ok) {
           const errorData = await response.json();
-          console.log("Error:", errorData);
+          console.log("Error:", errorData); // Debug
 
           setSuccessMessage("");
           setErrorMessage("Failed to register.");
@@ -126,7 +128,7 @@ function Register() {
           />
         </div>
         <div className={style.buttons}>
-          <Link to="/login">
+          <Link to="/">
             <button className={style.cancelButton}>
               <p className={style.cancelButtonLabel}>Back</p>
             </button>

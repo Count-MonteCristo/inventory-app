@@ -15,6 +15,7 @@ import style from "./componentCSS/login.module.css";
 import imageSource from "../creative/Inventorio.png";
 
 function Login() {
+  // Defines component variables
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -33,6 +34,7 @@ function Login() {
       };
 
       try {
+        // Fetch request to send credentials to remote database for authentication
         const response = await fetch(url, {
           method: "POST",
           headers: {
@@ -41,21 +43,22 @@ function Login() {
           body: JSON.stringify(data),
         });
 
-        console.log("Submitting form .."); //debug
+        console.log("Submitting form .."); // Debug
 
         if (response.ok) {
           console.log("Success loggin in");
 
-          // save token to local storage
-          localStorage.setItem("token", data.token);
+          // Extracts token from response and saves it to local storage
+          const responseData = await response.json();
+          localStorage.setItem("token", responseData.token);
 
           // Sends user to the products page
-          navigate("/");
+          navigate("/products");
         }
 
         if (!response.ok) {
           const errorData = await response.json();
-          console.log("Error:", errorData);
+          console.log("Error:", errorData); // Debug
 
           setErrorMessage("Failed to log in.");
         }

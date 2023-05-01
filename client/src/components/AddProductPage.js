@@ -32,6 +32,7 @@ function AddProduct() {
       };
 
       try {
+        // Fetch request to add a product to remote database
         const response = await fetch(url, {
           method: "POST",
           headers: {
@@ -41,10 +42,11 @@ function AddProduct() {
           body: JSON.stringify(data),
         });
 
-        console.log("Submitting form .."); //debug
+        console.log("Submitting form .."); // Debug
 
         if (response.ok) {
-          console.log("Success adding product");
+          console.log("Success adding product"); // Debug
+
           setSuccessMessage("Product added successfully!");
           setErrorMessage("");
 
@@ -58,7 +60,7 @@ function AddProduct() {
 
         if (!response.ok) {
           const errorData = await response.json();
-          console.log("Error:", errorData);
+          console.log("Error:", errorData); // Debug
 
           setSuccessMessage("");
           setErrorMessage("Failed to add product.");
@@ -150,7 +152,7 @@ function AddProduct() {
           />
         </div>
         <div className={style.buttons}>
-          <Link to="/">
+          <Link to="/products">
             <button className={style.cancelButton}>
               <p className={style.cancelButtonLabel}>Back</p>
             </button>
