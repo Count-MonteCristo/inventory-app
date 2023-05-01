@@ -80,6 +80,7 @@ table {
   width: 100%;
   border-collapse: collapse;
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  margin-bottom: 40px;
 }
 
 table th,
