@@ -11,6 +11,8 @@ import imageSource from "../creative/Inventorio.png";
 function Home() {
   // Defines component variables
   const [products, setProducts] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
+
   const navigate = useNavigate();
 
   // Sets the token variable and url for the Fetch API requests
@@ -90,7 +92,9 @@ function Home() {
           <input
             className={style.search}
             type="text"
-            placeholder="Search"
+            placeholder="Search by product name"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
           />
         </div>
         <div className={style.optionsContainer}>
@@ -116,28 +120,37 @@ function Home() {
           </thead>
           {/* Body */}
           <tbody>
-            {products.map((product) => (
-              <tr key={product._id}>
-                <td>{product.productName}</td>
-                <td>{product.sku}</td>
-                <td>{product.supplier}</td>
-                <td>${product.price.toFixed(2)}</td>
-                <td>
-                  <span>{product.quantity}</span>
-                </td>
-                <td>
-                  <Link to={`/update/${product._id}`}>
-                    <button className={style.actionButtons}>Edit</button>
-                  </Link>
-                  <button
-                    className={style.actionButtons}
-                    onClick={() => handleDelete(product._id)}
-                  >
-                    Delete
-                  </button>
-                </td>
+            {products
+              .filter((product) => product.productName.includes(searchQuery))
+              .map((product) => (
+                <tr key={product._id}>
+                  <td>{product.productName}</td>
+                  <td>{product.sku}</td>
+                  <td>{product.supplier}</td>
+                  <td>${product.price.toFixed(2)}</td>
+                  <td>
+                    <span>{product.quantity}</span>
+                  </td>
+                  <td>
+                    <Link to={`/update/${product._id}`}>
+                      <button className={style.actionButtons}>Edit</button>
+                    </Link>
+                    <button
+                      className={style.actionButtons}
+                      onClick={() => handleDelete(product._id)}
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            {products.filter((product) =>
+              product.productName.includes(searchQuery)
+            ).length === 0 && (
+              <tr>
+                <td colSpan="6">No products found with that name.</td>
               </tr>
-            ))}
+            )}
           </tbody>
         </table>
       </div>
