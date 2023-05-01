@@ -9,7 +9,7 @@ const mongoose = require("mongoose");
 // Product schema definition
 const ProductSchema = new mongoose.Schema(
   {
-    name: {
+    productName: {
       type: String,
       required: true,
     },

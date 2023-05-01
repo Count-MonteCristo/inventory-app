@@ -79,3 +79,9 @@
   font-size: 20px;
   margin: 0;
 }
+
+.successMessage,
+.errorMessage {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}

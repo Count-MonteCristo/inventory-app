@@ -5,7 +5,7 @@
  */
 
 // Imports - Dependencies
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 // Import - Style
@@ -14,20 +14,89 @@ import style from "./componentCSS/register.module.css";
 // Import - Creative Assets
 import imageSource from "../creative/Inventorio.png";
 
-// Defines component variables
-const email = "";
-const password = "";
-
 function Register() {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+
+  // Fetch API Request to register a user
+  const handleSubmit = async (event) => {
+    console.log("handleSubmit called"); //debug
+
+    event.preventDefault();
+
+    const postData = async (name, email, password) => {
+      const url = "http://localhost:5005/api/v1/auth/register";
+
+      const data = {
+        name: name,
+        email: email,
+        password: password,
+      };
+
+      try {
+        // Fetch request that sends data to remote databsse to create a new user
+        const response = await fetch(url, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        });
+
+        console.log("Submitting form .."); // Debug
+
+        if (response.ok) {
+          console.log("Success registering"); // Debug
+
+          setSuccessMessage("User registered successfully!");
+          setErrorMessage("");
+
+          // Reset form values to nothing
+          setName("");
+          setEmail("");
+          setPassword("");
+        }
+
+        if (!response.ok) {
+          const errorData = await response.json();
+          console.log("Error:", errorData); // Debug
+
+          setSuccessMessage("");
+          setErrorMessage("Failed to register.");
+        }
+      } catch {}
+    };
+
+    postData(name, email, password);
+  };
+
   return (
     <div className={style.card}>
       <img
         src={imageSource}
         alt="logo"
       />
-      <p>Please provide an email and a passwords</p>
+      <p>Please provide your information below</p>
       {/* Register form component */}
-      <form>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label
+            className={style.registerLabel}
+            htmlFor="name"
+          >
+            Name:
+          </label>
+          <input
+            className={style.registerInput}
+            type="name"
+            id="name"
+            value={name}
+            onChange={(event) => setName(event.target.value)}
+          />
+        </div>
         <div>
           <label
             className={style.registerLabel}
@@ -39,7 +108,8 @@ function Register() {
             className={style.registerInput}
             type="email"
             id="email"
-            //value={email}
+            value={email}
+            onChange={(event) => setEmail(event.target.value)}
           />
         </div>
         <div>
@@ -53,25 +123,31 @@ function Register() {
             className={style.registerInput}
             type="password"
             id="password"
-            //value={password}
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
           />
         </div>
         <div className={style.buttons}>
-          <Link to="/login">
+          <Link to="/">
             <button className={style.cancelButton}>
-              <p className={style.cancelButtonLabel}>Cancel</p>
+              <p className={style.cancelButtonLabel}>Back</p>
             </button>
           </Link>
-          <Link to="/login">
-            <button
-              className={style.registerButton}
-              type="submit"
-            >
-              <p className={style.registerButtonLabel}>Register</p>
-            </button>
-          </Link>
+          <button
+            className={style.registerButton}
+            type="submit"
+          >
+            <p className={style.registerButtonLabel}>Register</p>
+          </button>
         </div>
       </form>
+
+      {/* Success message */}
+      {successMessage && (
+        <div className={style.successMessage}>{successMessage}</div>
+      )}
+      {/* Error message */}
+      {errorMessage && <div className={style.errorMessage}>{errorMessage}</div>}
     </div>
   );
 }

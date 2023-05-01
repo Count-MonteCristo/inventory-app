@@ -4,8 +4,9 @@
  */
 
 // Imports - Dependencies
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 // Import - Style
 import style from "./componentCSS/login.module.css";
@@ -15,8 +16,57 @@ import imageSource from "../creative/Inventorio.png";
 
 function Login() {
   // Defines component variables
-  const email = "";
-  const password = "";
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const navigate = useNavigate();
+
+  const handleSubmit = async (event) => {
+    console.log("handleSubmit called"); //debug
+    event.preventDefault();
+
+    const postData = async (email, password) => {
+      const url = "http://localhost:5005/api/v1/auth/login";
+
+      const data = {
+        email: email,
+        password: password,
+      };
+
+      try {
+        // Fetch request to send credentials to remote database for authentication
+        const response = await fetch(url, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        });
+
+        console.log("Submitting form .."); // Debug
+
+        if (response.ok) {
+          console.log("Success loggin in");
+
+          // Extracts token from response and saves it to local storage
+          const responseData = await response.json();
+          localStorage.setItem("token", responseData.token);
+
+          // Sends user to the products page
+          navigate("/products");
+        }
+
+        if (!response.ok) {
+          const errorData = await response.json();
+          console.log("Error:", errorData); // Debug
+
+          setErrorMessage("Failed to log in.");
+        }
+      } catch {}
+    };
+
+    postData(email, password);
+  };
 
   return (
     <div className={style.card}>
@@ -26,7 +76,7 @@ function Login() {
       />
       <p>Please login with your admin credentials</p>
       {/* Login form component */}
-      <form>
+      <form onSubmit={handleSubmit}>
         <div>
           <label
             className={style.loginLabel}
@@ -38,7 +88,8 @@ function Login() {
             className={style.loginInput}
             type="email"
             id="email"
-            //value={email}
+            value={email}
+            onChange={(event) => setEmail(event.target.value)}
           />
         </div>
         <div>
@@ -52,18 +103,21 @@ function Login() {
             className={style.loginInput}
             type="password"
             id="password"
-            //value={password}
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
           />
         </div>
-        <Link to="/">
-          <button
-            className={style.loginButton}
-            type="submit"
-          >
-            <p className={style.loginButtonLabel}>Login</p>
-          </button>
-        </Link>
+        <button
+          className={style.loginButton}
+          type="submit"
+        >
+          <p className={style.loginButtonLabel}>Login</p>
+        </button>
       </form>
+
+      {/* Error message */}
+      {errorMessage && <div className={style.errorMessage}>{errorMessage}</div>}
+
       <div>
         <p className={style.registerPrompt}>
           Don't have an account?
