@@ -17,11 +17,11 @@ function Home() {
 
   // Sets the token variable and url for the Fetch API requests
   const token = localStorage.getItem("token");
-  const url = "http://localhost:5005/api/v1/products";
+  const baseURL = "https://inventory-app-api-lwiy.onrender.com/api/v1";
 
   // Fetches the product list from the remote database
   useEffect(() => {
-    fetch(url, {
+    fetch(`${baseURL}/products`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -34,7 +34,7 @@ function Home() {
 
   // Deletes the product from database
   const handleDelete = (_id) => {
-    fetch(`${url}/${_id}`, {
+    fetch(`${baseURL}/products/${_id}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${token}`,

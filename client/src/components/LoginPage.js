@@ -26,7 +26,7 @@ function Login() {
     event.preventDefault();
 
     const postData = async (email, password) => {
-      const url = "http://localhost:5005/api/v1/auth/login";
+      const baseURL = "https://inventory-app-api-lwiy.onrender.com/api/v1";
 
       const data = {
         email: email,
@@ -35,7 +35,7 @@ function Login() {
 
       try {
         // Fetch request to send credentials to remote database for authentication
-        const response = await fetch(url, {
+        const response = await fetch(`${baseURL}/auth/login`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

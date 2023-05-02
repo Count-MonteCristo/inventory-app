@@ -28,7 +28,7 @@ function Register() {
     event.preventDefault();
 
     const postData = async (name, email, password) => {
-      const url = "http://localhost:5005/api/v1/auth/register";
+      const baseURL = "https://inventory-app-api-lwiy.onrender.com/api/v1";
 
       const data = {
         name: name,
@@ -38,7 +38,7 @@ function Register() {
 
       try {
         // Fetch request that sends data to remote databsse to create a new user
-        const response = await fetch(url, {
+        const response = await fetch(`${baseURL}/auth/register`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

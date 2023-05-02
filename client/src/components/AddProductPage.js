@@ -21,7 +21,7 @@ function AddProduct() {
 
     const postData = async (productName, sku, supplier, price, quantity) => {
       const token = localStorage.getItem("token");
-      const url = "http://localhost:5005/api/v1/products";
+      const baseURL = "https://inventory-app-api-lwiy.onrender.com/api/v1";
 
       const data = {
         productName: productName,
@@ -33,7 +33,7 @@ function AddProduct() {
 
       try {
         // Fetch request to add a product to remote database
-        const response = await fetch(url, {
+        const response = await fetch(`${baseURL}/products`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

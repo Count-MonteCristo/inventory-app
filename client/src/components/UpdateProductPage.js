@@ -15,11 +15,12 @@ function UpdateProduct(props) {
   const [errorMessage, setErrorMessage] = useState("");
 
   const token = localStorage.getItem("token");
-  const url = `http://localhost:5005/api/v1/products/${id}`;
+  const baseURL = "https://inventory-app-api-lwiy.onrender.com/api/v1";
+  const urlWithID = `${baseURL}/products/${id}`;
 
   // Fetches current product data from remote database
   useEffect(() => {
-    fetch(url, {
+    fetch(urlWithID, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -40,7 +41,7 @@ function UpdateProduct(props) {
 
     console.log(updatedProduct); // Debug
 
-    fetch(url, {
+    fetch(urlWithID, {
       method: "PATCH",
       headers: {
         Authorization: `Bearer ${token}`,
